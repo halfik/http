@@ -14,7 +14,7 @@ class ResponseFactory extends BaseResponseFactory
     protected $downloadRequiredFields = array(
         'file',
         'name'
-    )
+    );
 
 
     /**
