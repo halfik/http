@@ -22,6 +22,13 @@ class ResponseServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('ni.http.response', function () {
+            return new Response();
+        });
 
+        $this->app->booting(function()
+        {
+            AliasLoader::getInstance()->alias('NiResponse','Netinteractive\Http\Facades\ResponseFacade');
+        });
     }
 }
