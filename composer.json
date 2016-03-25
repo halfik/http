@@ -1,0 +1,29 @@
+{
+    "name": "netinteractive/http",
+    "license": "MIT",
+    "type": "library",
+    "homepage": "http://git.nidev.pl:81/laravel/http",
+    "keywords": ["laravel", "http", "request", "response", "laravel5"],
+    "version": "1.0.0@dev",
+    "description": "",
+    "authors": [
+        {
+            "name": "Piotr Pryga",
+            "email": "halfik@gmail.com",
+            "role": "Owner"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.2.*"
+    },
+    "require-dev": {
+      "codeception/codeception": "*"
+    },
+    "autoload": {
+      "psr-0": {
+          "Netinteractive\\Http\\": "src/"
+      }
+    },
+    "minimum-stability": "stable"
+}
