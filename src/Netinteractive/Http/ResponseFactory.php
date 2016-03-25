@@ -40,9 +40,15 @@ class ResponseFactory extends BaseResponseFactory
         else if ($request->pjax()){
             return $this->json($data, $status, $headers, $options);
         }
+        /**
+         * View response
+         */
         else if (array_key_exists('view', $data)){
             return $this->view($data['view'], $data, $status, $headers);
         }
+        /**
+         * File download response
+         */
         else if (array_key_exists('download', $data)){
             $disposition = isset($data['download']['disposition']) ? $data['download']['disposition'] : 'attachment';
 
