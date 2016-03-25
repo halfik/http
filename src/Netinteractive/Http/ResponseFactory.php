@@ -46,7 +46,7 @@ class ResponseFactory extends BaseResponseFactory
         else if (array_key_exists('download', $data)){
             $disposition = isset($data['download']['disposition']) ? $data['download']['disposition'] : 'attachment';
 
-            foreach ($downloadRequiredFields AS $field) {
+            foreach ($this->downloadRequiredFields AS $field) {
                 if (!array_key_exists($field, $data['download'])){
                     throw new DownloadParamsException($field);
                 }
