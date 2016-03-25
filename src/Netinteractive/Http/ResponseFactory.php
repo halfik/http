@@ -11,9 +11,16 @@ use Netinteractive\Http\Exception\DownloadParamsException;
  */
 class ResponseFactory extends BaseResponseFactory
 {
+    /**
+     * @var array
+     */
     protected $downloadRequiredFields = array(
         'file',
         'name'
+    );
+
+    protected $streamRequiredFields = array(
+        'callback'
     );
 
 
@@ -60,6 +67,18 @@ class ResponseFactory extends BaseResponseFactory
 
 
             return $this->download($data['download']['file'], $data['download']['name'], $headers, $disposition);
+        }
+        /**
+         * File stream response
+         */
+        else if (array_key_exists('stream', $data)){
+            foreach ($this->streamRequiredFields AS $field) {
+                if (!array_key_exists($field, $data['stream'])){
+                    throw new StreamParamsException($field);
+                }
+            }
+
+            return $this->stream($data['stream']['callback'], $status, $headers);
         }
 
         return $data;
