@@ -1,8 +1,6 @@
 <?php namespace Netinteractive\Http;
 
-use Illuminate\Http\Request AS Request;
 use Illuminate\Routing\ResponseFactory AS BaseResponseFactory;
-use  Illuminate\Http\Response AS BaseResponse;
 use Netinteractive\Http\Exception\DownloadParamsException;
 
 /**
@@ -26,32 +24,32 @@ class ResponseFactory extends BaseResponseFactory
 
     /**
      * Builds a response object
-     * @param \Illuminate\Http\Request $request
      * @param array $data
      * @param int $status
      * @param array $headers
      * @param int $options
      */
-    public function build(Request $request, array $data=array(), $status = 200, array $headers = [], $options = 0)
+    public function build(array $data=array(), $status = 200, array $headers = [], $options = 0)
     {
-
         /**
          * header: X-Requested-With
          */
-        if ($request->ajax()){
+        if ( \Request::ajax() ){
             return $this->json($data, $status, $headers, $options);
         }
         /**
          * header: X-PJAX
          */
-        else if ($request->pjax()){
+        else if ( \Request::pjax() ){
             return $this->json($data, $status, $headers, $options);
         }
         /**
          * View response
          */
         else if (array_key_exists('view', $data)){
-            return $this->view($data['view'], $data, $status, $headers);
+            $view = $this->view->make($data['view'], $data);
+
+            return $this->make($view, $status, $headers);
         }
         /**
          * File download response
@@ -81,6 +79,6 @@ class ResponseFactory extends BaseResponseFactory
             return $this->stream($data['stream']['callback'], $status, $headers);
         }
 
-        return $data;
+        return $this->make($data, $status, $headers);
     }
 }
