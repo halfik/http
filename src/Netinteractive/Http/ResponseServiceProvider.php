@@ -22,13 +22,18 @@ class ResponseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('ni.http.response', function () {
-            return new Response();
-        });
+        $this->registerResponseFactory();
+    }
 
-        $this->app->booting(function()
-        {
-            AliasLoader::getInstance()->alias('NiResponse','Netinteractive\Http\Facades\ResponseFacade');
+    /**
+     * Register the response factory implementation.
+     *
+     * @return void
+     */
+    protected function registerResponseFactory()
+    {
+        $this->app->singleton('Illuminate\Contracts\Routing\ResponseFactory', function ($app) {
+            return new ResponseFactory($app['Illuminate\Contracts\View\Factory'], $app['redirect']);
         });
     }
 }
