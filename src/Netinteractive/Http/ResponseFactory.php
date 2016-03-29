@@ -44,14 +44,6 @@ class ResponseFactory extends BaseResponseFactory
             return $this->json($data, $status, $headers, $options);
         }
         /**
-         * View response
-         */
-        else if (array_key_exists('view', $data)){
-            $view = $this->view->make($data['view'], $data);
-
-            return $this->make($view, $status, $headers);
-        }
-        /**
          * File download response
          */
         else if (array_key_exists('download', $data)){
@@ -77,6 +69,14 @@ class ResponseFactory extends BaseResponseFactory
             }
 
             return $this->stream($data['stream']['callback'], $status, $headers);
+        }
+        /**
+         * View response
+         */
+        else if (array_key_exists('view', $data)){
+            $view = $this->view->make($data['view'], $data);
+
+            return $this->make($view, $status, $headers);
         }
 
         return $this->make($data, $status, $headers);

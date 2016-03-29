@@ -37,6 +37,14 @@ Package delivers tools to work with Http requests and responses.
             'callback' => $callback
         );
 
+Response types priority:
+
+1. json
+2. pson
+3. file
+4. stream
+5. view
+
  
 ## How To
 
@@ -65,4 +73,7 @@ Default 'view' should be set in routes.php:
 
 
 ## Changelog
+
+* 1.0.1 : changed priority of view (moved it to the end of order list)
+
 * 1.0.0 : init
