@@ -63,9 +63,11 @@ Default 'view' should be set in routes.php:
             array(
                 'as' => 'Sandbox\HalfikController@index',
                 'uses' => function (){
-                    $view = 'frontend.index'; #\Input::get('view');
-                    $layout = 'red'; #\Input::get('layout');
-                    return \Utils::runAction('Sandbox\HalfikController@index', $view,\Input::all(), $layout);
+                    $params = \Input::all();
+                    
+                    $params['view'] = 'frontend.index'; #\Input::get('view');
+                    
+                    return \Utils::runAction('Sandbox\HalfikController@index',\Input::all());
                 }
             )
         );
@@ -73,6 +75,8 @@ Default 'view' should be set in routes.php:
 
 
 ## Changelog
+
+* 1.0.2: changed readme.md
 
 * 1.0.1 : changed priority of view (moved it to the end of order list)
 
