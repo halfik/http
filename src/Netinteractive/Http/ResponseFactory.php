@@ -1,6 +1,9 @@
 <?php namespace Netinteractive\Http;
 
 use Illuminate\Routing\ResponseFactory AS BaseResponseFactory;
+use Illuminate\Contracts\Support\Arrayable;
+use JsonSerializable;
+
 use Netinteractive\Http\Exception\DownloadParamsException;
 
 /**
@@ -24,13 +27,17 @@ class ResponseFactory extends BaseResponseFactory
 
     /**
      * Builds a response object
-     * @param array $data
+     * @param mixed $data
      * @param int $status
      * @param array $headers
      * @param int $options
      */
-    public function build(array $data=array(), $status = 200, array $headers = [], $options = 0)
+    public function build($data, $status = 200, array $headers = [], $options = 0)
     {
+        if ($data instanceof Arrayable && ! $data instanceof JsonSerializable) {
+            $data = $data->toArray();
+        }
+
         /**
          * header: X-Requested-With
          */

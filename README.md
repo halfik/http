@@ -76,8 +76,18 @@ Default 'view' should be set in routes.php:
 
 ## Changelog
 
-* 1.0.2: changed readme.md
+* 1.0.3:
 
-* 1.0.1 : changed priority of view (moved it to the end of order list)
+        changed \Response:build $data param definition, allowing it to be array or any Arrayable object.
 
-* 1.0.0 : init
+* 1.0.2:
+
+        changed readme.md
+
+* 1.0.1 : 
+
+        changed priority of view (moved it to the end of order list)
+
+* 1.0.0 : 
+
+        init
