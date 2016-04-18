@@ -37,58 +37,56 @@ class ResponseFactory extends BaseResponseFactory
         if ($data instanceof Arrayable || $data instanceof JsonSerializable) {
             if ( \Request::ajax() || \Request::pjax()  ){
                 $data = $data->toJson();
+
             }else{
-                $data = $data->toArray();
+                $data = $data->toJson();
             }
         }
 
         /**
-         * header: X-Requested-With
+         * header: X-Requested-With || X-PJAX
          */
-        if ( \Request::ajax() ){
+        if ( \Request::ajax() || \Request::pjax()){
             return $this->json($data, $status, $headers, $options);
         }
-        /**
-         * header: X-PJAX
-         */
-        else if ( \Request::pjax() ){
-            return $this->json($data, $status, $headers, $options);
-        }
-        /**
-         * File download response
-         */
-        else if (array_key_exists('download', $data)){
-            $disposition = isset($data['download']['disposition']) ? $data['download']['disposition'] : 'attachment';
+        else if (is_array($data)){
+            /**
+             * File download response
+             */
+             if (array_key_exists('download', $data)){
+                $disposition = isset($data['download']['disposition']) ? $data['download']['disposition'] : 'attachment';
 
-            foreach ($this->downloadRequiredFields AS $field) {
-                if (!array_key_exists($field, $data['download'])){
-                    throw new DownloadParamsException($field);
+                foreach ($this->downloadRequiredFields AS $field) {
+                    if (!array_key_exists($field, $data['download'])){
+                        throw new DownloadParamsException($field);
+                    }
                 }
+
+
+                return $this->download($data['download']['file'], $data['download']['name'], $headers, $disposition);
             }
-
-
-            return $this->download($data['download']['file'], $data['download']['name'], $headers, $disposition);
-        }
-        /**
-         * File stream response
-         */
-        else if (array_key_exists('stream', $data)){
-            foreach ($this->streamRequiredFields AS $field) {
-                if (!array_key_exists($field, $data['stream'])){
-                    throw new StreamParamsException($field);
+            /**
+             * File stream response
+             */
+            else if (array_key_exists('stream', $data)){
+                foreach ($this->streamRequiredFields AS $field) {
+                    if (!array_key_exists($field, $data['stream'])){
+                        throw new StreamParamsException($field);
+                    }
                 }
+
+                return $this->stream($data['stream']['callback'], $status, $headers);
             }
+            /**
+             * View response
+             */
+            else if (array_key_exists('view', $data)){
+                $view = $this->view->make($data['view'], $data);
 
-            return $this->stream($data['stream']['callback'], $status, $headers);
+                return $this->make($view, $status, $headers);
+            }
         }
-        /**
-         * View response
-         */
-        else if (array_key_exists('view', $data)){
-            $view = $this->view->make($data['view'], $data);
 
-            return $this->make($view, $status, $headers);
-        }
 
         return $this->make($data, $status, $headers);
     }

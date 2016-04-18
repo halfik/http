@@ -76,7 +76,7 @@ Default 'view' should be set in routes.php:
 
 ## Changelog
 
-* 1.0.4:
+* 1.0.4 - 1.0.5:
     
         fixed: on json request we had an array reponse. now its fixed to json.
 
