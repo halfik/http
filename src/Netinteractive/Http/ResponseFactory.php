@@ -39,7 +39,7 @@ class ResponseFactory extends BaseResponseFactory
                 $data = $data->toJson();
 
             }else{
-                $data = $data->toJson();
+                $data = $data->toArray();
             }
         }
 
