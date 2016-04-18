@@ -34,8 +34,12 @@ class ResponseFactory extends BaseResponseFactory
      */
     public function build($data, $status = 200, array $headers = [], $options = 0)
     {
-        if ($data instanceof Arrayable && ! $data instanceof JsonSerializable) {
-            $data = $data->toArray();
+        if ($data instanceof Arrayable || $data instanceof JsonSerializable) {
+            if ( \Request::ajax() || \Request::pjax()  ){
+                $data = $data->toJson();
+            }else{
+                $data = $data->toArray();
+            }
         }
 
         /**

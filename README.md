@@ -76,17 +76,21 @@ Default 'view' should be set in routes.php:
 
 ## Changelog
 
+* 1.0.4:
+    
+        fixed: on json request we had an array reponse. now its fixed to json.
+
 * 1.0.3:
 
-        changed \Response:build $data param definition, allowing it to be array or any Arrayable object.
+        changed: \Response:build $data param definition, allowing it to be array or any Arrayable object.
 
 * 1.0.2:
 
-        changed readme.md
+        changed: readme.md
 
 * 1.0.1 : 
 
-        changed priority of view (moved it to the end of order list)
+        changed: priority of view (moved it to the end of order list)
 
 * 1.0.0 : 
 
