@@ -5,10 +5,10 @@ Package delivers tools to work with Http requests and responses.
 
 ## Services
  * \Netinteractive\Http\ResponseServiceProvider - service that overrides default ResponseFactory (avaible under \Response alias).
+ * \Netinteractive\Http\RouteSeriveProvider - service that deliver js function niRouteUrl, that allows to build routes with parameters.
  
  
 ## Response types
-
 * json: if X-Requested-With is in request headers, reponse will be json.
 * pson: if X-PJAX is in request headers, response will be pson.
 * view: if view is set in $params and there are no json headers, response will be View.
@@ -47,7 +47,6 @@ Response types priority:
 
  
 ## How To
-
 Example action:
   
         public function index( array $params=array() )
@@ -67,7 +66,7 @@ Default 'view' should be set in routes.php:
                     
                     $params['view'] = 'frontend.index'; #\Input::get('view');
                     
-                    return \Utils::runAction('Sandbox\HalfikController@index',\Input::all());
+                    return \Utils::runAction('Sandbox\HalfikController@index', $params);
                 }
             )
         );
@@ -75,23 +74,19 @@ Default 'view' should be set in routes.php:
 
 
 ## Changelog
-
-* 1.0.4 - 1.0.7:
+* 1.0.8:
+    * new: \Netinteractive\Http\RouteSeriveProvider
     
-        fixed: on json request we had an array reponse. now its fixed to json.
+* 1.0.4 - 1.0.7:
+    * fixed: on json request we had an array reponse. now its fixed to json.
 
 * 1.0.3:
-
-        changed: \Response:build $data param definition, allowing it to be array or any Arrayable object.
+    * changed: \Response:build $data param definition, allowing it to be array or any Arrayable object.
 
 * 1.0.2:
+    * changed: readme.md
 
-        changed: readme.md
+* 1.0.1: 
+   * changed: priority of view (moved it to the end of order list)
 
-* 1.0.1 : 
-
-        changed: priority of view (moved it to the end of order list)
-
-* 1.0.0 : 
-
-        init
+* 1.0.0 : init
