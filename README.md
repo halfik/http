@@ -74,6 +74,10 @@ Default 'view' should be set in routes.php:
 
 
 ## Changelog
+
+* 1.0.9:
+    * fixed: composer.json psr-0 definition
+
 * 1.0.8:
     * new: \Netinteractive\Http\RouteSeriveProvider
     

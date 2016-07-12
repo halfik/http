@@ -4,7 +4,7 @@
     "type": "library",
     "homepage": "http://git.nidev.pl:81/laravel/http",
     "keywords": ["laravel", "http", "request", "response", "laravel5"],
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "",
     "authors": [
         {
@@ -21,9 +21,9 @@
       "codeception/codeception": "*"
     },
     "autoload": {
-      "psr-0": {
-          "Netinteractive\\Http\\": "src/"
-      }
+        "psr-0": {
+            "Netinteractive\\Http\\": "src/"
+        }
     },
     "minimum-stability": "stable"
 }
