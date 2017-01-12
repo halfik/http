@@ -5,6 +5,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
 use Netinteractive\Http\Exception\DownloadParamsException;
+use Netinteractive\Http\Exception\StreamParamsException;
 
 /**
  * Class ResponseFactory
@@ -31,6 +32,8 @@ class ResponseFactory extends BaseResponseFactory
      * @param int $status
      * @param array $headers
      * @param int $options
+     * @throws DownloadParamsException
+     * @throws StreamParamsException
      */
     public function build($data, $status = 200, array $headers = [], $options = 0)
     {
@@ -55,7 +58,6 @@ class ResponseFactory extends BaseResponseFactory
                         throw new DownloadParamsException($field);
                     }
                 }
-
 
                 return $this->download($data['download']['file'], $data['download']['name'], $headers, $disposition);
             }
